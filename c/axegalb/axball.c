@@ -140,3 +140,46 @@ float det(float a[19][19],int n){
     }
     return(s);
 }
+
+
+/* ****************
+* Méthode de Gauss
+* *****************
+*/ 
+
+void gauss(float a[19][19],float b[19],int n){
+    float x[19],p,s;
+    int i,j,k;
+
+    for(k=0; k<n-1; k++){
+        if (a[k][k]==0){
+            printf("\n\n Oups pivot nul !! \n");
+            printf("La méthode de Gauss ne peut pas être utilisée\n\n");
+        }
+
+
+        for(i=k+1; i<n; i++){//réduisons la matrice
+            p=a[i][k]/a[k][k];
+            for (j=k; j<n; j++)
+                a[i][j]=a[i][j]-p*a[k][j];
+            b[i]=b[i]-p*b[k];
+        }
+    }
+
+
+    for(i=n-1; i>=0; i--){//résolvons avec le for
+        s=0;
+        for(j=i+1; j<n; j++)
+            s=s+a[i][j]*x[j];
+        x[i]=(b[i]-s)/a[i][i];
+    }
+
+    zerofuntion(a,b,n);
+    printf("\n */* Méthode de Gauss */* \n");
+    printf("\n Matrice pécédemment saisie dévient :");
+    showme_iwrote(a,b,n);
+    printf("\n On a la solution suivante :\n\n");
+    for (i=0; i<n; i++)
+        printf(" X_%d = %.2f ;\n",i+1,x[i]);
+}
+
