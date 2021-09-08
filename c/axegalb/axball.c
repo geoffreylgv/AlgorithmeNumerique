@@ -326,4 +326,46 @@ void gauss_total(float a[19][19],float b[19],int n){
     printf("\n");
 }
 
+/* ***********************
+* Méthode de Gauss Jordan
+* ************************
+*/
+void gauss_jordan(float a[19][19],float b[19],int n){
+    float p;
+    int i,j,k;
+
+    for(k=0; k<n; k++){
+        if (a[k][k]==0){
+            printf("\n\n Jordan impossible, pivot non different de zero !!\n\n");
+        }
+
+        p=a[k][k];
+
+        //la de normalisation  de la matrice
+        for (j=k; j<n; j++)
+            a[k][j]=a[k][j]/p;
+        b[k]=b[k]/p;
+
+        //rdt
+        for(i=0; i<n; i++){//redusons
+            if (i!=k){
+                p=a[i][k];
+                for (j=k; j<n; j++){
+                    a[i][j]=a[i][j]-p*a[k][j];
+                }
+                b[i]=b[i]-p*b[k];
+            }
+        }
+    }
+
+    zerofuntion(a,b,n);
+    printf("\n *********** La méthode Gauss Jordan ********** \n");
+    printf("\n La matrice devient :");
+    showme_iwrote(a,b,n);
+    printf("\n solution est :\n\n");
+    for(i=0; i<n; i++)
+        printf(" X_%d = %f ;\n",i+1,b[i]);
+    printf("\n");
+}
+
 
