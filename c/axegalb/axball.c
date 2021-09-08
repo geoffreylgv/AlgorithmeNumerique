@@ -183,3 +183,64 @@ void gauss(float a[19][19],float b[19],int n){
         printf(" X_%d = %.2f ;\n",i+1,x[i]);
 }
 
+
+/* *****************************
+* Méthode de Gauss Pivot partiel
+* ******************************
+*/
+void gauss_partielle(float a[19][19],float b[19],int n){
+    float x[19],p,s,ref,temp;
+    int i,j,k,ligne;
+
+    for(k=0; k<n-1; k++)
+    {
+        //*************recherche du maximum pour réaliser le pivot*/
+        ref=0;
+        for(i=k; i<n; i++){
+            if(fabs(a[i][k])>ref){
+                ref=fabs(a[i][k]);
+                ligne=i;
+            }
+        }
+        //***************pivotation */
+        for(j=k; j<n; j++){//for pivotation
+            temp=a[k][j];
+            a[k][j]=a[ligne][j] ;
+            a[ligne][j]=temp;
+        }
+
+        temp=b[k];
+        b[k]=b[ligne];
+        b[ligne]=temp;
+
+        if (a[k][k]==0){
+            printf("\n\n Impossible d'appliquer la méthode de Gauss pivot partiel (le pivot n'est pas différent de zero)\n\n");
+        }
+
+        /******redct */
+        for(i=k+1; i<n; i++){//la matrice devient
+            p=a[i][k]/a[k][k];
+            for (j=k; j<n; j++)
+                a[i][j]=a[i][j]-p*a[k][j];
+            b[i]=b[i]-p*b[k];
+        }
+    }
+
+    /*********re */
+    for(i=n-1; i>=0; i--){//résolvons
+        s=0;
+        for(j=i+1; j<n; j++)
+            s=s+a[i][j]*x[j];
+        x[i]=(b[i]-s)/a[i][i];
+    }
+    zerofuntion(a,b,n);
+    printf("\n */* Méthode de Gauss avec Stratégie de Pivot */* \n");
+    printf("\n Matrice devient :");
+    showme_iwrote(a,b,n);
+    printf("\n On a la solution suivante :\n\n");
+    for (i=0; i<n; i++)
+        printf(" X_%d = %f ;\n",i+1,x[i]);
+    printf("\n");
+}
+
+
