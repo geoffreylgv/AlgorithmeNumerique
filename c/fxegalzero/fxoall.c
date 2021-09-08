@@ -1,10 +1,9 @@
 /**
-*@author geoffrey logovi geoffreylogovi2@gmail.com
+*@author geoffrey logovi geoffreylogovi2@gmail.com code écrit avec soin
 *@name fxoall.c method  [f(x)=0]
 *@description  algorithm for all Matrice Ax=B 
     (the most methods : gauss, gauss partiel, pivot and gauss jordan, cholesky, 
     lu crout, lu doolittle, jacobie, gauss-seidel)
-*@authorinit web and the arabe code. ;)
 **/
 
 #include <stdio.h>
@@ -60,6 +59,8 @@ int controlEntierN(char *message)
     return n;
 }
 
+/* @dichotomie la méthode de dichotomieaffiche tout ce qui a été saisie par l'utulisateur en faite le système matriciel
+*/
 void dichotomie(float a, float b, int n)
 {
     double erreur = fabs(n);
