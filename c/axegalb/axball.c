@@ -62,3 +62,40 @@ float rule(float x[19],int n){
             ref=x[i];
     return(ref);
 }
+
+
+
+/**
+ * @zerofunction remplissage par zero les éléments dans la résolution détèrminée
+*/ 
+
+void zerofuntion(float a[19][19],float b[19],int n){
+    int i,j;
+    float eps=1e-4;
+    for(i=0; i<n; i++)
+    {
+        for (j=0; j<n; j++)
+            if (fabs(a[i][j])<eps)
+                a[i][j]=0;
+        if (fabs(b[i])<eps)
+            b[i]=0;
+    }
+}
+
+/**
+ * @showme_matrice afficahe de la matrice
+ */
+
+void showme_matrice(float a[19][19],int n){
+    int i,j;
+    printf("\n\n");
+    for (i=0; i<n; i++)
+    {
+        printf(" [");
+        for (j=0; j<n; j++)
+        {
+            printf(" %.3f ",a[i][j]);
+        }
+        printf("]\n");
+    }
+}
