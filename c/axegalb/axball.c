@@ -118,3 +118,25 @@ void comatrices(float a[19][19],float c[19][19],int i,int j,int n){
                 c[l-1][k-1]=a[l][k];
         }
 }
+
+
+/**
+ * @det : determinant de matrice
+*/
+float det(float a[19][19],int n){
+    int k,j;
+    float c[19][19],s;
+
+    k=n-1;
+
+    if(n==0)
+        return(1);
+
+    s=0;
+    for(j=0; j<n; j++)
+    {
+        comatrices(a,c,k,j,n);
+        s=s+pow(-1,k+j)*a[k][j]*det(c,k);
+    }
+    return(s);
+}
