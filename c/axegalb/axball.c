@@ -243,4 +243,87 @@ void gauss_partielle(float a[19][19],float b[19],int n){
     printf("\n");
 }
 
+/* *****************************
+* Méthode de Gauss Pivot total
+* ******************************
+*/
+void gauss_total(float a[19][19],float b[19],int n){
+    float x[19],p,s,ref,temp;
+    int i,j,k,ligne,colonne,pivot_sol[19],temps;
+
+    // vecteur de pivotation des solutions
+    for(i=0; i<n; i++)
+        pivot_sol[i]=i;
+
+    for(k=0; k<n-1; k++){
+        // recherche du maximum (pivot total)
+        ref=0;
+        for(i=k; i<n; i++){
+            for (j=k; j<n; j++) {
+                if(fabs(a[i][j])>ref)
+                {
+                    ref=fabs(a[i][j]);
+                    ligne=i;
+                    colonne=j;
+                }
+            }
+        }
+        // pivotations
+        for(j=k; j<n; j++){ //for pivot
+            temp=a[k][j];
+            a[k][j]=a[ligne][j] ;
+            a[ligne][j]=temp;
+        }
+
+        temp=b[k];
+        b[k]=b[ligne];
+        b[ligne]=temp;
+
+        for(i=0; i<n; i++){//résolution
+            temp=a[i][k];
+            a[i][k]=a[i][colonne] ;
+            a[i][colonne]=temp;
+        }
+
+        // fillmatrice la fonction qui remplie la matrice : ici elle remplie le vecteur b qui permettra la pivotations
+        temps=pivot_sol[k];
+        pivot_sol[k]=pivot_sol[colonne];
+        pivot_sol[colonne]=temps;
+
+        if (a[k][k]==0){
+            printf("\n\n La méthode de Gauss avec stratégie total ne peut pas etre oppérée, pivot non différent de zero \n\n");
+        }
+
+        //rd
+        for(i=k+1; i<n; i++){//reduisons
+            p=a[i][k]/a[k][k];
+            for (j=k; j<n; j++)
+                a[i][j]=a[i][j]-p*a[k][j];
+            b[i]=b[i]-p*b[k];
+        }
+    }
+
+    //rs
+    for(i=n-1; i>=0; i--){//résolution
+        s=0;
+        for(j=i+1; j<n; j++)
+            s=s+a[i][j]*b[j];
+        b[i]=(b[i]-s)/a[i][i];
+    }
+
+    
+    for(i=0; i<n; i++){//pivot total chgm pv
+        x[pivot_sol[i]]=b[i];
+    }
+    
+    zerofuntion(a,b,n);
+    printf("\n *********Méthode de Gauss avec stratégie de pivot total \n");
+    printf("\n la matrice écrite devient :");
+    showme_iwrote(a,b,n);
+    printf("\n La solution est :\n\n");
+    for (i=0; i<n; i++)
+        printf(" X_%d = %f ;\n",i+1,x[i]);
+    printf("\n");
+}
+
 
