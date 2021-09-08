@@ -99,3 +99,22 @@ void showme_matrice(float a[19][19],int n){
         printf("]\n");
     }
 }
+
+
+/**
+ * @comatrice : calcul de la comatrice
+ */
+void comatrices(float a[19][19],float c[19][19],int i,int j,int n){
+    int l,k;
+    for(l=0; l<n; l++)
+        for(k=0; k<n; k++){
+            if ((l<i)&&(k<j))
+                c[l][k]=a[l][k];
+            if ((l>i)&&(k<j))
+                c[l-1][k]=a[l][k];
+            if ((l<i)&&(k>j))
+                c[l][k-1]=a[l][k];
+            if ((l>i)&&(k>j))
+                c[l-1][k-1]=a[l][k];
+        }
+}
