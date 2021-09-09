@@ -327,3 +327,72 @@ void newton(float x0, int n)
 }
 
 
+/* @corde1 la méthode de corde1
+*/
+void corde1(float a, float b, float x0, int n)
+{
+    double prec;
+    n = fabs(n);
+    prec = 1/pow(10,n);
+    float y, qk;
+    float x1 = x0;
+    int i=10000, iter = 1;
+    if (fonctDeriver(x0))
+    {
+        y= fonction(x0);
+        qk= fonctDeriver(x0);
+        while (fabs(y)>prec && i>0)
+        {
+            printf("\nItération N°: %d, f(%f) = %f, df(%f) = %f",iter,x0,y,x1,qk);
+            x0 -= y/qk;
+            y= fonction(x0);
+            i--;
+            iter++;
+        }
+
+        if(i)
+        {
+            printf("\nLa solution est X= %f",x0);
+        }
+        else
+            printf("\nLa méthode ne converge pas après %d itérations", iter);
+    }
+    else
+        printf("\nLa méthode ne converge pas car df(%f)= 0",x0);
+}
+
+/* @corde2 la méthode de corde2
+*/
+void corde2(float x0, int n)
+{
+
+    double prec;
+    n = fabs(n);
+    prec = 1/pow(10,n);
+    float y, qk;
+    float x1 = x0;
+    int i=10000, iter = 1;
+    if (fonctDeriver(x0))
+    {
+        y= fonction(x0);
+        qk= fonctDeriver(x0);
+        while (fabs(y)>prec && i>0)
+        {
+            printf("\nItération N°: %d, f(%f) = %f, df(%f) = %f",iter,x0,y,x1,qk);
+            x0 -= y/qk;
+            y= fonction(x0);
+            i--;
+            iter++;
+        }
+
+        if(i)
+        {
+            printf("\nLa solution est X= %f",x0);
+        }
+        else
+            printf("\nLa méthode ne converge pas après %d itérations", iter);
+    }
+    else
+        printf("\nLa méthode ne converge pas car df(%f)= 0",x0);
+}
+
