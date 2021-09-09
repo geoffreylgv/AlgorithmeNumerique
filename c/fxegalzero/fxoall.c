@@ -451,3 +451,25 @@ void balayage(float a, float b, int n)
 }
 
 
+
+int main(){
+
+    int choix = 0;
+    int reponse = 0;
+    int a, n, iter;
+    float b;
+    float x0, x1;
+    printf("\n\t*****************************************************\n");
+    printf("\t\t   EQUATION NON LINEAIRE\n");
+    printf("\n\t*****************************************************\n\n");
+    
+    do{
+        a= controlEntier("La borne inferieur (a) : ");
+        b= controlEntier("La borne superieur (b) : ");
+        iter= controlEntier("La tolerence (erreur de 10^-)");
+        if (aInf==bSup)
+        printf("\nLes bornes sont egaux.... Entrer à nouveau");
+        else if(aInf > bSup)
+        printf("La valeur de a est superieur a la valeur de b.... Entrer au nouveau");
+    }while(aInf>bSup || aInf==bSup);
+}
