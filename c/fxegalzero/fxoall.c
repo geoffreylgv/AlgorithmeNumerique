@@ -290,6 +290,8 @@ void secante(float a, float b, int n)
         printf("\nLa solution est %f",x2);
 }
 
+/* @newton la méthode de newton
+*/
 void newton(float x0, int n)
 {
     double prec;
@@ -323,4 +325,5 @@ void newton(float x0, int n)
     else
         printf("\nLa méthode ne converge pas car df(%f)= 0",x0);
 }
+
 
