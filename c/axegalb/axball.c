@@ -657,3 +657,90 @@ void cholesky(float a[19][19], float b[19], int taille)
     for (i=0; i<taille; i++)
         printf(" X_%d = %f ;\n",i+1,x[i]);
 }
+
+
+/* *****************************
+* Méthode de Jacobienne
+* ******************************
+*/
+void jacobie(float a[19][19],float b[19],int n){
+    float x[19],x1[19],x2[19],s,eps=1e-4;
+    int i,j,k,iter=0;
+
+    //Vecteur initial Xo
+    printf("\n Innitialison le vecteur solution (Xo) : \n"); 
+    printf("\n Saisissez  (Xo) : \n\n");
+    for (i=0; i<n; i++){
+        printf(" X(0)[%d]= ",i+1);
+        scanf("%f",&x1[i]);
+    }
+
+    do{
+        for(i=0; i<n; i++){
+            s=0;
+            for (j=0; j<n; j++)
+                if (i!=j)
+                    s=s+a[i][j]*x1[j];
+            x2[i]=(b[i]-s)/a[i][i];
+        }
+        for (k=0; k<n; k++){
+            x[k]=fabs(x1[k]-x2[k]);
+            x1[k]=x2[k];
+        }
+
+        iter++;
+    }while (rule(x,n)>eps) ;
+
+    printf("\n ***********Solution avec la méthode Jacoobienne *************\n");
+    printf("\n solution égal :\n\n");
+    for (i=0; i<n; i++)
+        printf(" X_%d = %f ;\n",i+1,x2[i]);
+    printf("\n Indice de précision (espillon) 10^-10. \n");
+    printf("\n Itérration:  %d\n",iter);
+}
+
+/* *****************************
+* Méthode de Gauss-Seidel
+* ******************************
+*/
+void gauss_seidel(float a[19][19],float b[19],int n){
+    float x[19],x1[19],x2[19],s,p,eps=1e-4;
+    int i,j,k,iter=0;
+
+    //vecteur initial Xo
+   //Vecteur initial Xo
+    printf("\n Innitialison le vecteur solution (Xo) : \n"); 
+    printf("\n Saisissez  (Xo) : \n\n");
+    for (i=0; i<n; i++){
+        printf(" X(0)[%d]= ",i+1);
+        scanf("%f",&x1[i]);
+    }
+
+    do{
+        for(i=0; i<n; i++){
+            s=0;
+            p=0;
+            for (j=i+1; j<n; j++)
+                s=s+a[i][j]*x1[j];
+            for (j=0; j<i; j++)
+                p=p+a[i][j]*x2[j];
+            x2[i]=(b[i]-s-p)/a[i][i];
+        }
+        for (k=0; k<n; k++){
+            x[k]=fabs(x1[k]-x2[k]);
+            x1[k]=x2[k];
+        }
+
+        iter++;
+    }while (rule(x,n)>eps) ;
+
+    printf("\n *******Seidel ** Méthode de Gauss Seidel *********\n");
+    printf("\n  La resolution donne :\n\n");
+    for (i=0; i<n; i++){
+        printf(" X_%d = %f ;\n",i+1,x2[i]);
+    }
+    //printf("\n Indice de précision 10^-10. \n");
+    printf("\n Intérration compté : %d \n", iter);
+}
+
+
