@@ -60,7 +60,7 @@ int controlEntierN(char *message)
 }
 
 
-/* @dichotomie la méthode de dichotomieaffiche tout ce qui a été saisie par l'utulisateur en faite le système matriciel
+/* @dichotomie la méthode de dichotomie
 */
 void dichotomie(float a, float b, int n)
 {
@@ -128,6 +128,9 @@ void dichotomie(float a, float b, int n)
 
 }
 
+
+/* @lagrange la méthode de lagrange
+*/
 void lagrange(float a, float b, int n)
 {
     double erreur;
@@ -191,4 +194,133 @@ void lagrange(float a, float b, int n)
     }
 }
 
+/* @pointfixe la méthode de pointfixe
+*/
+void pointFixe(float a, int n)
+{
+	int i = 10000, trouver = 0;
+	int temp = 1;
+	double erreur, calcErreur;
+	double xn, xn1;
+	n = fabs(n);
+	erreur = 1 / pow(10, n);
+	xn = a;
+
+	while(temp < i && calcErreur > erreur && trouver != 1)
+	{
+		xn1 = fonctionFixe(xn);
+		calcErreur = fabs(xn1 - xn) / fabs(xn1);
+		printf("\nItération n°%d Xn+1 = %f ", temp, xn1);
+		if(calcErreur < erreur)
+		{
+			printf("\n\n La convergence est atteinte en %d itérations \n Et le point fixe est Xn+1 = %f", temp, xn1);
+			trouver = 1;
+		}
+		else if(!(temp < i))
+		{
+			printf("\n La convergence n'est pas atteinte en %d itérations", i);
+			trouver = 1;
+		}
+
+		xn = xn1;
+		temp++;
+	}
+
+}
+
+/* @pointFixe la méthode de pointFixe dexiemmmmm (petit probleme)
+*/
+/*
+void pointFixe(float a, int n)
+{
+    double erreur;
+    double temp;
+    int i=1000,trouve=0;
+    double compteur;
+    n = fabs(n);
+    erreur = 1/(pow(10,n));
+    temp=0;
+    while(temp<i && fabs(fonction(a)-a/fonction(a))>erreur && trouve==0)
+    {
+        compteur=a;
+        a = fonction(a);
+        if(fonction(compteur)==0)
+        {
+            printf("\n Le resultat est : %lf",compteur);
+            trouve=1;
+        }
+        temp++;
+    }
+
+    if(trouve==0)
+    {
+        printf("\n Erreur de convergence de la methode.");
+    }
+}
+*/
+
+/* @secante la méthode de secante
+*/
+void secante(float a, float b, int n)
+{
+    double erreur;
+    n = fabs(n);
+    erreur = 1/pow(10,n);
+    float t=0,x2= 0, f1=0,f2=0 ;
+    int it=1;
+
+    do
+    {
+        f1=fonction(a);
+        f2=fonction(b);
+        x2 = b - ((f2*(b-a))/(f2-f1));
+        a=b;
+        b=x2;
+        if(f2<0)
+            t=fabs(f2);
+        else
+            t=f2;
+        printf("\nItération N° %d : X = %f \n",it,x2);
+        it++;
+    }
+    while(t>erreur);
+    if( isfinite(x2) == 0)
+        printf("\nune division par zéro est faite à ce niveau.\n");
+    else
+        printf("\nLa solution est %f",x2);
+}
+
+void newton(float x0, int n)
+{
+    double prec;
+    n = fabs(n);
+    prec = 1/pow(10,n);
+    float y, dy;
+    double iprec;
+    int i=10000, iter = 1;
+    if (fonctDeriver(x0))
+    {
+        y= fonction(x0);
+        dy= fonctDeriver(x0);
+        iprec= 1/prec;
+        while (fabs(y)>prec && dy<iprec && i>0)
+        {
+            printf("\nItération N°: %d, f(%f) = %f, df(%f) = %f",iter,x0,y,x0,dy);
+            x0 -= y/dy;
+            y= fonction(x0);
+            dy= fonctDeriver(x0);
+            i--;
+            iter++;
+        }
+
+        if(i)
+        {
+            printf("\nLa solution est X= %f",x0);
+        }
+        else
+            printf("\nLa méthode ne converge pas après %d itérations", iter);
+    }
+    else
+        printf("\nLa méthode ne converge pas car df(%f)= 0",x0);
+}
 
