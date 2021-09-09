@@ -396,3 +396,58 @@ void corde2(float x0, int n)
         printf("\nLa méthode ne converge pas car df(%f)= 0",x0);
 }
 
+
+/* @lagrange la méthode de lagrange
+*/
+
+void balayage(float a, float b, int n)
+{
+    double erreur = fabs(n);
+    erreur = 1/pow(10,n);
+    float pas;
+    float inf,sup;
+    int trouve=0;
+    pas=1;
+    inf=a;
+    sup=b;
+    if (fonction(a)==0 && fonction(b)==0)
+    {
+        printf("\nL'intervalle [%.2f ; %.2f] est solution", a,b);
+    }
+    if ((fonction(a)*fonction(b)>0)||(fonction(a)*fonction(b)<0))
+    {
+        while (((pas+inf)<b) && ((sup-inf)>erreur) && (trouve==0))
+        {
+            if ((fonction(inf)*fonction(inf+pas))<0)
+            {
+                sup= inf+pas;
+                pas/=10;
+            }
+            else if ((fonction(inf)*fonction(inf+pas))>0)
+            {
+
+                inf+=pas;
+            }
+            else
+            {
+                if (fonction(inf)== 0)
+                    printf("\nLa solution est x= %f",inf);
+                if (fonction(inf+pas)==0)
+                    printf("\nla solution est x= %f",inf+pas);
+                trouve= 1;
+            }
+        }
+    }
+    else
+    {
+        if(fonction(a)==0)
+            printf("\nLa solution est x= %.0f",a);
+        if (fonction(b)==0)
+            printf("\nLa solution est x= %.0f",b);
+        trouve= 1;
+    }
+    if(!trouve)
+        printf("\nPas de solution dans cet intervalle");
+}
+
+
