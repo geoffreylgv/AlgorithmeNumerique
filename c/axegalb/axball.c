@@ -369,3 +369,4 @@ void gauss_jordan(float a[19][19],float b[19],int n){
 }
 
 
+
