@@ -450,7 +450,7 @@ void balayage(float a, float b, int n)
         printf("\nPas de solution dans cet intervalle");
 }
 
-
+// make sure it run successfully else, run you code one by one in different file
 
 int main(){
 
