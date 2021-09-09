@@ -744,3 +744,47 @@ void gauss_seidel(float a[19][19],float b[19],int n){
 }
 
 
+
+int main(int argc, char *argv[]){
+    float a[19][19],b[19];
+    int n,i,j;
+
+    printf("\t\t\t\t PRGRAMME AX=B, EN POSANT CETTE EQUATION NOUS AVONS UNE SOLUTION MATRICIELLE\n\n");
+    printf("\n\t\t\t\t +++++++++++++++++++ Cahpitre 2 : AX=B ++++++++++++++++ \n");
+    printf("\t\t\t\t\t\t Resolution de A x = B \n\n");
+    printf("Entrez les valeurs nécessaires pour la résolution de A\n");
+
+    printf("\n\n Saisissez la taille (n) : \n\n n = ");
+    scanf("%d",&n);
+    fillmatrice(a,b,n);
+    printf("\n\n Soit le systeme matriciel suivant : ");
+    showme_iwrote(a,b,n);
+
+    printf("\t\t\t\t \n\n");
+    printf("\n");
+    printf(" \t\t\t\t  ====> Gauss \n");
+    gauss(a,b,n);
+    printf(" \t\t\t\t ====> Gauss pivot partiel \n");
+    gauss_partielle(a,b,n);
+    printf(" \t\t\t\t  ====> Gauss pivot total \n");
+    gauss_total(a,b,n);
+    printf(" \t\t\t\t  ====> Jordan \n");
+    gauss_jordan(a,b,n);
+    /*printf(" \t\t\t\t  ====> LU Doolittle \n");
+    LU_doolittle(a,b,n);*/
+    printf(" \t\t\t\t  ====> LU Crout \n");
+    LU_crout(a,b,n);
+    printf(" \t\t\t\t  ====> Cholesky \n");
+    cholesky(a,b,n);
+    /*printf(" \t\t\t\t  ====> Jacobie \n");
+    jacobie(a,b,n);
+    printf(" \t\t\t\t  ====> Gauss-Seidel \n");
+    gauss_seidel(a,b,n);*/
+    printf("\n\n");
+    printf("\t\t\t\t ++++++++++++++++++++++Fermerture du Script+++++++++++++++++++\n");
+    printf(" \n");
+        
+    printf("\n");
+
+    return 0;
+}
