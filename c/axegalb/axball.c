@@ -505,3 +505,155 @@ void LU_crout(float a[19][19],float b[19],int n){
     }
 }
 
+
+/* *****************************
+* Méthode de CHOLESKYY :)
+* ******************************
+*/
+void _cholesky(float a[19][19],float b[19],int n){
+    float L[19][19],Lt[19][19],x[19],y[19],s,p;
+    int i,j,k;
+
+    // contrôl: vérification si M est symétrique
+    for (i=0; i<n; i++){
+        for (j=0; j<n; j++){
+            if (a[i][j]!=a[j][i]){
+                printf("\n\n La matrice n'est pas symétrique");
+                printf("Impossible donc d'implémenter la méthode de Cholesky \n\n");
+            }
+        }
+    }
+
+    //contrôl : vérification si M est définie positive
+    for (i=0; i<n; i++)
+        for (j=0; j<n; j++)
+            L[i][j]=0;
+
+    for (i=0; i<n; i++)
+    {
+        s=0;
+        for (k=0; k<i; k++)
+            s=s+pow(L[i][k],2);
+        p=a[i][i]-s;
+
+        if (p<=0)
+        {
+            printf("\n\n La matrice n'est pas définie positive ");
+            printf("Méthode de Cholesky non implémentable \n\n");
+        }
+
+        L[i][i]=sqrt(p);
+
+        for(j=i+1; j<n; j++)
+        {
+            s=0;
+            for (k=0; k<i; k++)
+                s=s+L[i][k]*L[j][k];
+            L[j][i]=(a[j][i]-s)/L[i][i];
+        }
+    }
+
+    for (i=0; i<n; i++)
+        for (j=0; j<n; j++)
+            Lt[i][j]=L[j][i];
+
+    // redt
+    for(i=0; i<n; i++){//réduisons M
+        s=0;
+        for(j=0; j<i; j++)
+            s=s+L[i][j]*y[j];
+        y[i]=(b[i]-s)/L[i][i];
+    }
+
+    for(i=n-1; i>=0; i--)
+    {
+        s=0;
+        for(j=i+1; j<n; j++)
+            s=s+Lt[i][j]*x[j];
+        x[i]=(y[i]-s)/Lt[i][i];
+    }
+
+    printf("\n- ***** Affichage solution avec Cholesky **** \n");
+    printf("\n La décomp est la suivante :  A = L * L't \n");
+    printf("\n La Décomp L est :");
+    showme_matrice(L,n);
+    printf("\n La Décomp L't est :");
+    showme_matrice(Lt,n);
+    printf("\n * La resolution donne :\n\n");
+    for (i=0; i<n; i++)
+        printf(" X_%d = %f ;\n",i+1,x[i]);
+}
+void cholesky(float a[19][19], float b[19], int taille)
+{
+    float L[19][19],Lt[19][19],x[19],y[19],s,p;
+    int i,j,k;
+
+// véification de le symérie
+    for (i=0; i<taille; i++)
+        for (j=0; j<taille; j++)
+            if (a[i][j]!=a[j][i])
+            {
+                printf("\n\n Non symetrique! On ne peut appliquer la methode de Cholesky\n\n");
+                exit(-1);
+            }
+
+    for (i=0; i<taille; i++)
+        for (j=0; j<taille; j++)
+            L[i][j]=0;
+
+    for (i=0; i<taille; i++)
+    {
+        s=0;
+        for (k=0; k<i; k++)
+            s=s+pow(L[i][k],2);
+        p=a[i][i]-s;
+
+        if (p<=0)
+        {
+            printf("\n\n Non definie positive! On ne peut pas appliquer la methode de Cholesky\n\n");
+            exit(-1);
+        }
+
+        L[i][i]=sqrt(p);
+
+        for(j=i+1; j<taille; j++)
+        {
+            s=0;
+            for (k=0; k<i; k++)
+            {
+                s=s+L[i][k]*L[j][k];
+            }
+            L[j][i]=(a[j][i]-s)/L[i][i];
+        }
+    }
+
+    for (i=0; i<taille; i++)
+        for (j=0; j<taille; j++)
+            Lt[i][j]=L[j][i];
+
+/// resolution
+    for(i=0; i<taille; i++)
+    {
+        s=0;
+        for(j=0; j<i; j++)
+            s=s+L[i][j]*y[j];
+        y[i]=(b[i]-s)/L[i][i];
+    }
+
+    for(i=taille-1; i>=0; i--)
+    {
+        s=0;
+        for(j=i+1; j<taille; j++)
+            s=s+Lt[i][j]*x[j];
+        x[i]=(y[i]-s)/Lt[i][i];
+    }
+
+    printf("\n - A = L * Lt \n");
+    printf("\n - La matrice L :");
+    showme_matrice(L,taille);
+    printf("\n - La matrice Lt :");
+    showme_matrice(Lt,taille);
+    printf("\n - La resolution donne :\n\n");
+    for (i=0; i<taille; i++)
+        printf(" X_%d = %f ;\n",i+1,x[i]);
+}
