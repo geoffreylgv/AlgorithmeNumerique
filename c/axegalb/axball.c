@@ -370,3 +370,138 @@ void gauss_jordan(float a[19][19],float b[19],int n){
 
 
 
+/* *****************************
+* Méthode de LU Doolitlttle
+* ******************************
+*/
+void LU_doolittle(float a[19][19],float b[19],int n){
+    float L[19][19],U[19][19],x[19],y[19],s;
+    int i,j,k,m;
+
+    for (i=0; i<n; i++)
+        for (j=0; j<n; j++)
+        {
+            if(i==j)
+                L[i][j]=1;
+            else
+                L[i][j]=0;
+            U[i][j]=0;
+        }
+
+    for (m=0; m<n; m++){
+        for (j=m; j<n; j++){//decomposition U
+            s=0;
+            for (k=0; k<m; k++)
+                s=s+L[m][k]*U[k][j];
+            U[m][j]=a[m][j]-s;
+        }
+
+        if (U[k][k]==0){
+            printf("\n\n Nous ne pouvons pas appliquer LU, diagonal nul \n\n");
+        }
+
+        for (i=m+1; i<n; i++){//decomposition L
+            s=0;
+            for (k=0; k<m; k++)
+                s=s+L[i][k]*U[k][m];
+            L[i][m]=(a[i][m]-s)/U[m][m];
+        }
+    }
+
+    // rslv
+    for(i=0; i<n; i++){//résolution proprement dite
+        s=0;
+        for(j=0; j<i; j++)
+            s=s+L[i][j]*y[j];
+        y[i]=(b[i]-s)/L[i][i];
+    }
+
+    for(i=n-1; i>=0; i--)
+    {
+        s=0;
+        for(j=i+1; j<n; j++)
+            s=s+U[i][j]*x[j];
+        x[i]=(y[i]-s)/U[i][i];
+    }
+
+    printf("\n ***** Méthode Doolittle (LU) ****\n");
+    printf("\n Elle s'écrit : A = L * U \n Nous avons les deux décompositions L et U suivante: \n");
+    printf("\n Décomposition L :");
+    showme_matrice(L,n);
+    printf("\n Décomposition U :");
+    showme_matrice(U,n);
+    printf("\n Solution est :\n\n");
+    for (i=0; i<n; i++)
+        printf(" X_%d = %f ;\n",i+1,x[i]);
+}
+
+/* *****************************
+* Méthode de LU Crout
+* ******************************
+*/
+
+void LU_crout(float a[19][19],float b[19],int n){
+    float L[19][19],U[19][19],x[19],y[19],s;
+    int i,j,k,m;
+
+    for (i=0; i<n; i++)
+        for (j=0; j<n; j++)
+        {
+            if(i==j)
+                U[i][j]=1;
+            else
+                U[i][j]=0;
+            L[i][j]=0;
+        }
+
+    for (m=0; m<n; m++)
+    {
+        for (i=m; i<n; i++)
+        {
+            s=0;
+            for (k=0; k<m; k++)
+                s=s+L[i][k]*U[k][m];
+            L[i][m]=a[i][m]-s;
+        }
+
+        if (L[k][k]==0)
+        {
+            printf("\n\n Crout ne peut pas etre utilisée, diagonal nul\n\n");
+        }
+
+        for (j=m+1; j<n; j++)
+        {
+            s=0;
+            for (k=0; k<m; k++)
+                s=s+L[m][k]*U[k][j];
+            U[m][j]=(a[m][j]-s)/L[m][m];
+        }
+    }
+
+    // resolution par crout
+    for(i=0; i<n; i++){
+        s=0;
+        for(j=0; j<i; j++)
+            s=s+L[i][j]*y[j];
+        y[i]=(b[i]-s)/L[i][i];
+    }
+
+    for(i=n-1; i>=0; i--){
+        s=0;
+        for(j=i+1; j<n; j++)
+            s=s+U[i][j]*x[j];
+        x[i]=(y[i]-s)/U[i][i];
+    }
+
+    printf("\n ******* La méthode LU Crout : Solution **\n");
+    printf("\n Explicite :  A = L * U  décomposition L et U \n");
+    printf("\n Décomposition L :");
+    showme_matrice(L,n);
+    printf("\n Décomposition UU :");
+    showme_matrice(U,n);
+    printf("\n La solution est :\n\n");
+    for (i=0; i<n; i++){
+        printf(" X_%d = %f ;\n",i+1,x[i]);
+    }
+}
+
