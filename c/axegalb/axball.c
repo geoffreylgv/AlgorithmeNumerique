@@ -3,7 +3,7 @@
 *@name axball.c method  [Ax=B]
 *@description  algorithm for all Matrice Ax=B 
     (the most methods : gauss, gauss partiel, pivot and gauss jordan,
-    cholesky, lu crout, lu doolittle, jacobie, gauss-seidel)
+    cholesky, lu crout, lr doolittle, jacobie, gauss-seidel)
 *@authorinit web and the arabe code. ;)
 **/
 
@@ -371,11 +371,11 @@ void gauss_jordan(float a[19][19],float b[19],int n){
 
 
 /* *****************************
-* Méthode de LU Doolitlttle
+* Méthode de LR Doolitlttle
 * ******************************
 */
-void LU_doolittle(float a[19][19],float b[19],int n){
-    float L[19][19],U[19][19],x[19],y[19],s;
+void LR_doolittle(float a[19][19],float b[19],int n){
+    float L[19][19],R[19][19],x[19],y[19],s;
     int i,j,k,m;
 
     for (i=0; i<n; i++)
@@ -385,26 +385,26 @@ void LU_doolittle(float a[19][19],float b[19],int n){
                 L[i][j]=1;
             else
                 L[i][j]=0;
-            U[i][j]=0;
+            R[i][j]=0;
         }
 
     for (m=0; m<n; m++){
-        for (j=m; j<n; j++){//decomposition U
+        for (j=m; j<n; j++){//decomposition R
             s=0;
             for (k=0; k<m; k++)
-                s=s+L[m][k]*U[k][j];
-            U[m][j]=a[m][j]-s;
+                s=s+L[m][k]*R[k][j];
+            R[m][j]=a[m][j]-s;
         }
 
-        if (U[k][k]==0){
-            printf("\n\n Nous ne pouvons pas appliquer LU, diagonal nul \n\n");
+        if (R[k][k]==0){
+            printf("\n\n Nous ne pouvons pas appliquer LR, diagonal nul \n\n");
         }
 
         for (i=m+1; i<n; i++){//decomposition L
             s=0;
             for (k=0; k<m; k++)
-                s=s+L[i][k]*U[k][m];
-            L[i][m]=(a[i][m]-s)/U[m][m];
+                s=s+L[i][k]*R[k][m];
+            L[i][m]=(a[i][m]-s)/R[m][m];
         }
     }
 
@@ -420,16 +420,16 @@ void LU_doolittle(float a[19][19],float b[19],int n){
     {
         s=0;
         for(j=i+1; j<n; j++)
-            s=s+U[i][j]*x[j];
-        x[i]=(y[i]-s)/U[i][i];
+            s=s+R[i][j]*x[j];
+        x[i]=(y[i]-s)/R[i][i];
     }
 
-    printf("\n ***** Méthode Doolittle (LU) ****\n");
-    printf("\n Elle s'écrit : A = L * U \n Nous avons les deux décompositions L et U suivante: \n");
+    printf("\n ***** Méthode Doolittle (LR) ****\n");
+    printf("\n Elle s'écrit : A = L * R \n Nous avons les deux décompositions L et R suivante: \n");
     printf("\n Décomposition L :");
     showme_matrice(L,n);
-    printf("\n Décomposition U :");
-    showme_matrice(U,n);
+    printf("\n Décomposition R :");
+    showme_matrice(R,n);
     printf("\n Solution est :\n\n");
     for (i=0; i<n; i++)
         printf(" X_%d = %f ;\n",i+1,x[i]);
@@ -770,8 +770,8 @@ int main(int argc, char *argv[]){
     gauss_total(a,b,n);
     printf(" \t\t\t\t  ====> Jordan \n");
     gauss_jordan(a,b,n);
-    /*printf(" \t\t\t\t  ====> LU Doolittle \n");
-    LU_doolittle(a,b,n);*/
+    /*printf(" \t\t\t\t  ====> LR Doolittle \n");
+    LR_doolittle(a,b,n);*/
     printf(" \t\t\t\t  ====> LU Crout \n");
     LU_crout(a,b,n);
     printf(" \t\t\t\t  ====> Cholesky \n");
