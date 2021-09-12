@@ -9,8 +9,8 @@ algorithmes numériques de trouver un bon algorithme.
 
 # Crédits tiers
 &copy; : geoffreylgv : axb, fxo
-        python1 : DUPIN Léa, IPSA Paris
-        python2 et code langage C suite : Camarades de classe Centre Informatique et de Calcul - CIC Université de Lomé, Togo.
+        python1 : DUPIN Léa - Aéro 2 classe F2 Etudante à Institut Polytechnique des Sciences Avancées - IPSA Paris, France;
+        python2 : DZADZA Kossi Camarades de classe Centre Informatique et de Calcul - CIC Université de Lomé, Togo.
 
 
 # Contact
