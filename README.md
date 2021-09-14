@@ -1,4 +1,7 @@
 # AlgorithmeNumerique
+
+<a target="_blank" href="https://github.com/geoffreylgv/AlgorithmeNumerique"><img src="https://img.shields.io/github/stars/geoffreylgv/AlgorithmeNumerique" /></a>  <a target="_blank" href="https://github.com/geoffreylgv/AlgorithmeNumerique"><img src="https://img.shields.io/github/last-commit/geoffreylgv/AlgorithmeNumerique" /></a>
+
 Code C et Python d'implémentation des algorithmes numériques
 Cette librairie de code pour aider toutes les personnes qui ont des difficultés dans l'élaboration des
 algorithmes numériques de trouver un bon algorithme.
