@@ -20,6 +20,45 @@ algorithmes numériques de trouver un bon algorithme.
 Twitter [@geoffreylgv](https://twitter.com/geoffreylgv) <br>
 In Connection     [linkedin.com/in/geoffreylgv](https://linkedin.com/in/geoffreylgv)
 
+# Work dir navigation
+```
+LICENSE
+README.html
+README.md
+c
+   |-- MethodeThomas
+   |   |-- MethodeThomas.cbp
+   |   |-- MethodeThomas.depend
+   |   |-- MethodeThomas.layout
+   |   |-- bin
+   |   |   |-- Debug
+   |   |   |   |-- MethodeThomas
+   |   |-- main.c
+   |   |-- obj
+   |   |   |-- Debug
+   |   |   |   |-- main.o
+   |-- axegalb
+   |   |-- axball.c
+   |-- fxegalzero
+   |   |-- fxoall.c
+   |-- interpolation
+   |   |-- interpolation.c
+python
+   |-- bissection.py
+   |-- gauss.py
+   |-- global.py
+   |-- lu.py
+   |-- newton.py
+   |-- pivotpartiel.py
+   |-- pivottotal.py
+   |-- secante.py
+ressources
+   |-- 5-M\303\251thode du pivot de Gauss et ses applications.pdf"
+   |-- Fortin, Andr\303\251-Analyse nume\314\201rique pour inge\314\201nieurs-Presses internationales Polytechnique (2001).pdf"
+   |-- methode_de_la_corde.pdf
+   |-- polyAnaNum.pdf
+
+```
 # Disclaimer of Warranty.
 
 IL N'Y A PAS DE GARANTIE POUR LE PROGRAMME, DANS LA MESURE PERMISE PAR LA
